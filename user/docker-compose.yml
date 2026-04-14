@@ -11,8 +11,14 @@ services:
       image: josh3626/user:1.0.0
       container_name: user
       depends_on:
-      - mongodb
       - redis
+      - mongodb
+
+    mongodb:
+      build: ./mongodb
+      image: josh3626/mongodb:1.0.0
+      container_name: mongodb
+
 
     frontend:
       build: ./frontend.
