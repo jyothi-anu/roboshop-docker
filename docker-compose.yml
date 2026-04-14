@@ -32,5 +32,10 @@ services:
       - catalogue
       - user
     
+    network:
+      default:
+        driver: bridge
+        name: roboshop
+        external: false 
     
 
