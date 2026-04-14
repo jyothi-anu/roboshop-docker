@@ -32,7 +32,7 @@ services:
       - catalogue
       - user
     
-network:
+networks:
   default:
     driver: bridge
     name  : roboshop
