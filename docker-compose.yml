@@ -14,6 +14,32 @@ services:
       - redis
       - mongodb
 
+    cart:
+      build: ./cart
+      image: josh3626/cart:1.0.0
+      container_name: cart
+      depends_on:
+      - catalogue
+      - redis
+
+    shipping:
+      build: ./shipping
+      image: josh3626/shipping:1.0.0
+      container_name: shipping
+      depends_on:
+      - mysql
+      - cart
+
+    payment:
+      build: ./payment
+      image: josh3626/payment:1.0.0
+      container_name: payment
+      depends_on:
+      - user
+      - cart
+      - rabbitmq
+
+
     mongodb:
       build: ./mongodb
       image: josh3626/mongodb:1.0.0
@@ -22,6 +48,22 @@ services:
     redis:
       image: redis:7.0
       container_name: redis
+
+    mysql:
+      build: ./mysql
+      image: josh3626/mysql:1.0.0
+      container_name: mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: Roboshop@1
+
+    rabbitmq:
+      image: rabbitmq:3
+      container_name: rabbitmq
+      environment:
+        RABBITMQ_DEFAULT_USER: roboshop
+        RABBITMQ_DEFAULT_PASS: roboshop123
+      
+
 
 
     frontend:
@@ -33,6 +75,9 @@ services:
       depends_on:
       - catalogue
       - user
+      - cart
+      - shipping
+      - payment
     
 networks:
   default:
