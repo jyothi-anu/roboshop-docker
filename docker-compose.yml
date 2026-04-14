@@ -25,7 +25,7 @@ services:
 
 
     frontend:
-      build: ./frontend.
+      build: ./frontend
       image: josh3626/frontend:1.0.0
       container_name: frontend
       depends_on:
