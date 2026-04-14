@@ -1,0 +1,36 @@
+services:
+    catalogue:
+      build: ./catalogue
+      image:  josh3626/catalogue:1.0.0
+      container_name: catalogue
+      depends_on:
+      - mongodb
+
+    user  :
+      build: ./user
+      image: josh3626/user:1.0.0
+      container_name: user
+      depends_on:
+      - redis
+      - mongodb
+
+    mongodb:
+      build: ./mongodb
+      image: josh3626/mongodb:1.0.0
+      container_name: mongodb
+
+    redis:
+      image: redis:7.0
+      container_name: redis
+
+
+    frontend:
+      build: ./frontend.
+      image: josh3626/frontend:1.0.0
+      container_name: frontend
+      depends_on:
+      - catalogue
+      - user
+    
+    
+
